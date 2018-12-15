@@ -1,0 +1,11 @@
+#Docker stuff
+docker-compose.yml
+docker
+
+#App Specific
+.*
+
+#Files and Paths to ignore
+**/node_modules
+**/build
+.exe

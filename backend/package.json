@@ -4,8 +4,11 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "mocha",
-    "debug": "nodemon --inspect app.js"
+    "debug": "nodemon --inspect=0.0.0.0:9230 src/app.js --exec babel-node --source-maps",
+    "build": "babel src -d build --source-maps",
+    "clean": "rimraf build",
+    "start": "node build/app.js",
+    "test": "cross-env NODE_ENV=test mocha --require @babel/register tests/**/*.spec.js"
   },
   "author": "",
   "license": "ISC",
@@ -17,7 +20,12 @@
     "morgan": "^1.9.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.0",
+    "@babel/node": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
     "chai": "^4.2.0",
+    "cross-env": "^5.2.0",
     "eslint": "^5.10.0",
     "mocha": "^5.2.0",
     "nodemon": "^1.18.9",
