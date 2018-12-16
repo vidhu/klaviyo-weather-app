@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "debug": "nodemon --inspect=0.0.0.0:9230 src/app.js --exec babel-node --source-maps",
+    "debug": "nodemon --inspect=0.0.0.0:9230 -L src/app.js --exec babel-node --source-maps",
     "build": "babel src -d build --source-maps",
     "clean": "rimraf build",
     "start": "node build/app.js",
@@ -16,8 +16,9 @@
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "express": "^4.16.4",
-    "mongoose": "^5.3.16",
-    "morgan": "^1.9.1"
+    "mongoose": "^5.4.0",
+    "morgan": "^1.9.1",
+    "validator": "^10.9.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.0",
