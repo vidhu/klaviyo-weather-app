@@ -14,8 +14,13 @@ let conn = undefined;
   ch.consume(QUEUE_NAME, async msg => {
     const sub = JSON.parse(msg.content);
     console.log('[x] ' + JSON.parse(msg.content).email);
-    await sendMail.sendMail(sub.email, sub.city);
-    ch.ack(msg);
+
+    try {
+      await sendMail.sendMail(sub.email, sub.city);
+      ch.ack(msg);
+    } catch (ex) {
+      console.error(ex);
+    }
   });
 })();
 

@@ -24,7 +24,6 @@ export class SendMail {
     const weatherStatus = await getWeatherStatus(city);
 
     const emailMarkup = ReactDomServer.renderToStaticMarkup(<Email {...weatherStatus} />);
-    console.log(emailMarkup);
     let mailOptions = {
       from: '"Vidhu Bhatnagar" <vidhu1911@gmail.com>',
       to: email,
@@ -33,7 +32,6 @@ export class SendMail {
     };
 
     const info = await this.transporter.sendMail(mailOptions);
-    console.log(`Message send: ${info.messageId}`);
     console.log(`Preview URL: ${nodemailer.getTestMessageUrl(info)}`);
     return info;
   }
