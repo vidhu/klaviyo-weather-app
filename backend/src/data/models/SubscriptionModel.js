@@ -16,6 +16,7 @@ const SubscriptionSchema = new mongoose.Schema(
   },
   { collection: 'subscription' }
 );
+SubscriptionSchema.index({ email: 1, city: 1 }, { unique: true });
 
 const SubscriptionModel = mongoose.model('Subscription', SubscriptionSchema);
 
