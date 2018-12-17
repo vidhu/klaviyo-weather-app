@@ -1,0 +1,31 @@
+# Staged Build
+FROM node:alpine as mailer
+ENV NODE_ENV=development
+WORKDIR /home/mailer
+RUN apk add --no-cache --update bash
+ADD mailer/package*.json /tmp/
+RUN cd /tmp && npm install
+RUN cp -a /tmp/node_modules .
+COPY mailer .
+RUN ["npm", "run", "build"]
+
+# [PROD] Server
+FROM node:alpine
+MAINTAINER Vidhu "bhatnagar.sh@husky.neu.edu"
+ENV NODE_ENV=production
+WORKDIR /home/app
+
+# Copy build artifacts
+COPY --from=mailer /home/mailer/build ./build
+
+# Install packages
+RUN apk add --no-cache --update bash supervisor
+ADD mailer/package*.json ./
+ADD mailer/package*.json /tmp/
+RUN cd /tmp && npm install
+RUN cp -a /tmp/node_modules .
+
+# Run Application
+CMD ["npm", "run", "start"]
+
+EXPOSE 5000

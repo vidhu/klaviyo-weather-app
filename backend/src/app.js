@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import path from 'path';
 import { connect as dbConnect } from './data/db';
 import SubscriptionRoute from './routes/subscribe';
+import SendRoute from './routes/send';
 
 const app = express();
 app.use(cors());
@@ -12,6 +13,7 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.use('/api/send', SendRoute);
 app.use('/api/subscribe', SubscriptionRoute);
 
 app.use('/api', (req, res) => {
