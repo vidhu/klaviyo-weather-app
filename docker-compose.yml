@@ -27,8 +27,6 @@ services:
       - SMTP_PWD=ckZWafnyfGFvqQqsHN
     volumes: 
       - "./mailer:/home/app"
-    ports:
-      - "9231:9230"
     command: ["npm", "run", "debug"]
   db:
     image: mongo:4

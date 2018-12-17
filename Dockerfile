@@ -33,10 +33,12 @@ COPY --from=backend /home/backend/build ./build
 RUN apk add --no-cache --update bash supervisor
 ADD backend/package*.json ./
 ADD backend/package*.json /tmp/
+ADD mailer/*.sh ./
 RUN cd /tmp && npm install
 RUN cp -a /tmp/node_modules .
 
 # Run Application
+ENTRYPOINT ["./init.sh"]
 CMD ["npm", "run", "start"]
 
 EXPOSE 5000

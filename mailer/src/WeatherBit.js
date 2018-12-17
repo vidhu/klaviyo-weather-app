@@ -41,10 +41,7 @@ export const getWeatherStatus = async city => {
 
   // Check cache if we have data
   const cacheData = await WeatherCache.getCityWeather(city);
-  if (cacheData && cacheData.date === todaysDate) {
-    console.log(`[Cache hit]: ${city}`);
-    return cacheData;
-  }
+  if (cacheData && cacheData.date === todaysDate) return cacheData;
 
   // If not, fetch fresh new data
   const [current, historical] = await Promise.all([getCurrentWeather(city), getHistoricalWeather(city)]);

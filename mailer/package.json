@@ -7,7 +7,7 @@
     "debug": "nodemon --inspect=0.0.0.0:9230 -L src/app.js --exec babel-node --source-maps",
     "build": "babel src -d build --source-maps",
     "clean": "rimraf build",
-    "start": "node build/app.js",
+    "start": "nodemon build/app.js",
     "test": "cross-env NODE_ENV=test mocha --require @babel/register tests/**/*.spec.js"
   },
   "author": "",
@@ -23,10 +23,10 @@
     "eslint": "^5.10.0",
     "eslint-plugin-react": "^7.11.1",
     "mocha": "^5.2.0",
-    "nodemon": "^1.18.9",
     "nyc": "^13.1.0"
   },
   "dependencies": {
+    "nodemon": "^1.18.9",
     "amqplib": "^0.5.3",
     "axios": "^0.18.0",
     "moment": "^2.23.0",
