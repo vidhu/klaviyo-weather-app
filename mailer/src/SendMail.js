@@ -4,16 +4,19 @@ import { Email, getSubject } from './Email';
 import React from 'react';
 import ReactDomServer from 'react-dom/server';
 
-export const connect = () =>
-  nodemailer.createTransport({
-    host: process.env.SMTP_HOST || 'smtp.ethereal.email',
-    port: parseInt(process.env.SMTP_PORT) || 587,
-    secure: parseInt(process.env.SMTP_SECURE) === 1,
-    auth: {
-      user: process.env.SMTP_USER || 'en57otb2vldrenmg@ethereal.email',
-      pass: process.env.SMTP_PWD || 'ckZWafnyfGFvqQqsHN'
-    }
-  });
+const smtpSettings = {
+  host: process.env.SMTP_HOST || 'smtp.ethereal.email',
+  port: parseInt(process.env.SMTP_PORT) || 587,
+  secure: parseInt(process.env.SMTP_SECURE) === 1,
+  auth: {
+    user: process.env.SMTP_USER || 'en57otb2vldrenmg@ethereal.email',
+    pass: process.env.SMTP_PWD || 'ckZWafnyfGFvqQqsHN'
+  }
+};
+console.log('SMTP Settings:');
+console.log(smtpSettings);
+
+export const connect = () => nodemailer.createTransport(smtpSettings);
 
 export class SendMail {
   constructor(transporter) {
@@ -32,6 +35,7 @@ export class SendMail {
     };
 
     const info = await this.transporter.sendMail(mailOptions);
+    console.log('Email sent');
     console.log(`Preview URL: ${nodemailer.getTestMessageUrl(info)}`);
     return info;
   }
