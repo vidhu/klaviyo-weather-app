@@ -33,9 +33,11 @@ COPY --from=backend /home/backend/build ./build
 RUN apk add --no-cache --update bash supervisor
 ADD backend/package*.json ./
 ADD backend/package*.json /tmp/
-ADD mailer/*.sh ./
+ADD backend/*.sh ./
+ADD backend/cli.js ./
 RUN cd /tmp && npm install
 RUN cp -a /tmp/node_modules .
+RUN npm link
 
 # Run Application
 ENTRYPOINT ["./init.sh"]

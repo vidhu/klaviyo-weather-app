@@ -25,7 +25,7 @@ export class SendMail {
 
     const emailMarkup = ReactDomServer.renderToStaticMarkup(<Email {...weatherStatus} />);
     let mailOptions = {
-      from: '"Vidhu Bhatnagar" <vidhu1911@gmail.com>',
+      from: '"Vidhu Shresth Bhatnagar" <vidhu1911@gmail.com>',
       to: email,
       subject: getSubject(weatherStatus),
       html: emailMarkup
