@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import path from 'path';
 import { connect as dbConnect } from './data/db';
+import MailerService from './services/MailerService';
 import SubscriptionRoute from './routes/subscribe';
 import SendRoute from './routes/send';
 
@@ -22,7 +23,9 @@ app.use('/api', (req, res) => {
 
 app.use(express.static(path.resolve(__dirname, '../', 'static')));
 
-dbConnect().then(() => {
+(async () => {
+  await dbConnect();
+  await MailerService.connect();
   console.log('Listening on port 5000');
   app.listen(5000);
-});
+})();

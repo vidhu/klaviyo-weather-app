@@ -1,19 +1,19 @@
 import express from 'express';
+import MailerService from '../services/MailerService';
 import { SubscriptionModel } from '../data/models/SubscriptionModel';
-import ampq from 'amqplib';
 
 const router = express.Router();
 
-const QUEUE_NAME = 'email';
-
 router.post('/', async (req, res) => {
+  // TODO: Implement some sort of authentication
+
+  // Get all the subscriptions
   const subs = await SubscriptionModel.find({});
 
-  const conn = await ampq.connect('amqp://user:bitnami@rabbitMQ');
-  const ch = await conn.createChannel();
-  ch.assertQueue(QUEUE_NAME, { durable: true });
+  // Send them to mailer microservices
+  subs.forEach(sub => MailerService.sendToQueue(sub));
 
-  subs.forEach(sub => ch.sendToQueue('email', Buffer.from(JSON.stringify(sub))));
+  // Return subscription count
   res.json({ count: subs.length });
 });
 
