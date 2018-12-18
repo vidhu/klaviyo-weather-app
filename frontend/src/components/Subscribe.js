@@ -64,7 +64,7 @@ class Subscribe extends React.Component {
       this.subscriptionSuccess();
       this.resetValidation();
     } catch (error) {
-      this.validationError(error);
+      this.validationError(error.message);
     }
   };
 
