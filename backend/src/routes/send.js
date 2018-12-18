@@ -14,8 +14,7 @@ router.post('/', async (req, res) => {
   ch.assertQueue(QUEUE_NAME, { durable: true });
 
   subs.forEach(sub => ch.sendToQueue('email', Buffer.from(JSON.stringify(sub))));
-
-  res.json(subs);
+  res.json({ count: subs.length });
 });
 
 export default router;
