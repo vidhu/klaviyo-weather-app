@@ -46,5 +46,7 @@ When containers are built, the frontend is built first in a staging container an
 
 Visit `localhost:8080`
 
+![Frontend Screenshot](https://i.imgur.com/TDHEgtK.png)
+
 ## Test
  > Todo :(
