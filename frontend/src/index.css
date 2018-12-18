@@ -22,8 +22,10 @@ code {
   background-color: #2196f3 !important;
 }
 
-.container {
-  margin-top: 100px;
+@media only screen and (min-width: 600px) {
+  .container {
+    margin-top: 100px;
+  }  
 }
 
 .red-bg {
