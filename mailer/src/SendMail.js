@@ -16,6 +16,9 @@ const smtpSettings = {
 console.log('SMTP Settings:');
 console.log(smtpSettings);
 
+/**
+ * Connect to SMTP server
+ */
 export const connect = () => nodemailer.createTransport(smtpSettings);
 
 export class SendMail {
@@ -23,6 +26,11 @@ export class SendMail {
     this.transporter = transporter;
   }
 
+  /**
+   * Sends weather email to user
+   * @param {String} email User's email address
+   * @param {String} city User's city
+   */
   async sendMail(email, city) {
     const weatherStatus = await getWeatherStatus(city);
 

@@ -1,4 +1,9 @@
 const isLocalIp = (req, res, next) => {
+
+  /**
+   * @returns {Boolean} True if IP is of local network
+   * @param {string} ip Ip address
+   */
   const isLocalIpTest = ip =>
     /^(::f{4}:)?10\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})$/i.test(ip) ||
     /^(::f{4}:)?192\.168\.([0-9]{1,3})\.([0-9]{1,3})$/i.test(ip) ||

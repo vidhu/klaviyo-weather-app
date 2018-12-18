@@ -3,6 +3,9 @@ import { SubscriptionModel } from '../data/models/SubscriptionModel';
 
 const router = express.Router();
 
+/**
+ * Subscribe user to mailing list
+ */
 router.post('/', async (req, res) => {
   try {
     const pairCount = await SubscriptionModel.count({ email: req.body.email, city: req.body.city });
@@ -16,6 +19,9 @@ router.post('/', async (req, res) => {
   }
 });
 
+/**
+ * Unsubscribe user from mailing list. unsubscription key is their subscription id
+ */
 router.delete('/:subid', async (req, res) => {
   try {
     const sub = await SubscriptionModel.findByIdAndDelete(req.params.subid);

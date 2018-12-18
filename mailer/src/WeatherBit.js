@@ -20,6 +20,10 @@ const instance = axios.create({
   }
 });
 
+/**
+ * Gets weather data from WeatherBit for the current city
+ * @param {String} city City
+ */
 const getCurrentWeather = async city => {
   const res = await instance.get('/current', {
     params: { city }
@@ -28,6 +32,11 @@ const getCurrentWeather = async city => {
   return data.data[0];
 };
 
+
+/**
+ * Gets yesterday's weather data from WeatherBit for the current city
+ * @param {String} city City
+ */
 const getHistoricalWeather = async city => {
   const res = await instance.get('/history/daily', {
     params: { city, start_date: getYesterdaysDate(), end_date: getTodaysDate() }
@@ -36,6 +45,13 @@ const getHistoricalWeather = async city => {
   return data.data[0];
 };
 
+/**
+ * Gets today's weather update for current city
+ * Checks local cache first
+ * Checks redis cache second
+ * If no match found, queries new data from weatherbit
+ * @param {String} city City
+ */
 export const getWeatherStatus = async city => {
   const todaysDate = getTodaysDate();
 
@@ -46,10 +62,12 @@ export const getWeatherStatus = async city => {
   // If not, fetch fresh new data
   const [current, historical] = await Promise.all([getCurrentWeather(city), getHistoricalWeather(city)]);
 
+  // Calculate data of interest
   const tempDiff = current.temp - (historical.max_temp - historical.min_temp) / 2;
   const isSunny = current.weather.code >= 800 || current.weather.code <= 803;
   const isRainy = current.weather.code >= 200 || current.weather.code <= 623;
 
+  // Construct object
   const result = {
     city,
     date: todaysDate,
@@ -60,7 +78,9 @@ export const getWeatherStatus = async city => {
     iconCode: current.weather.icon
   };
 
-  // Update Cache
+  // Update/Save Cache
   WeatherCache.cacheCityWeather(result);
+
+  // Return newly computed data
   return result;
 };

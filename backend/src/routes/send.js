@@ -5,6 +5,9 @@ import { isLocalIp } from '../middleware';
 
 const router = express.Router();
 
+/**
+ * Schudules emails to be sent out
+ */
 router.post('/', [isLocalIp], async (req, res) => {
   // TODO: Implement some sort of user authentication but for now
   // local ip based authentication is fine

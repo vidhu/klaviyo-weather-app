@@ -14,18 +14,17 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// Application route prefixes
 app.use('/api/send', SendRoute);
 app.use('/api/subscribe', SubscriptionRoute);
 
-app.use('/api', (req, res) => {
-  res.json('hello world!');
-});
-
+// If no API routes match, send static frontend SPA files
 app.use(express.static(path.resolve(__dirname, '../', 'static')));
 
 (async () => {
-  await dbConnect();
-  await MailerService.connect();
+  await dbConnect(); // Connect to database
+  await MailerService.connect(); // Connect to AMPQ server
+  
   console.log('Listening on port 5000');
   app.listen(5000);
 })();
