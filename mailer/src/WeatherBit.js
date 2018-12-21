@@ -64,8 +64,8 @@ export const getWeatherStatus = async city => {
 
   // Calculate data of interest
   const tempDiff = current.temp - (historical.max_temp - historical.min_temp) / 2;
-  const isSunny = current.weather.code >= 800 || current.weather.code <= 803;
-  const isRainy = current.weather.code >= 200 || current.weather.code <= 623;
+  const isSunny = current.weather.code >= 800 && current.weather.code <= 803;
+  const isRainy = current.weather.code >= 200 && current.weather.code <= 623;
 
   // Construct object
   const result = {

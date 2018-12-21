@@ -22,7 +22,7 @@ const askQuestion = () => {
 };
 
 const sendEmailupdates = async () => {
-  const res = await axios.post('http://192.168.99.100:8080/api/send');
+  const res = await axios.post('http://web:5000/api/send');
   const data = res.data;
   console.log(
     chalk.blue('Email send job successfuly scheduled for ') + chalk.green(data.count) + chalk.blue(' subscribers')

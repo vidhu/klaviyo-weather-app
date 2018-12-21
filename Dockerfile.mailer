@@ -23,6 +23,7 @@ RUN apk add --no-cache --update bash supervisor
 ADD mailer/package*.json ./
 ADD mailer/package*.json /tmp/
 ADD mailer/*.sh ./
+RUN chmod +x init.sh wait-for-it.sh
 RUN cd /tmp && npm install
 RUN cp -a /tmp/node_modules .
 

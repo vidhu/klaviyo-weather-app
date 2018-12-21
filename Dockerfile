@@ -34,6 +34,7 @@ RUN apk add --no-cache --update bash supervisor
 ADD backend/package*.json ./
 ADD backend/package*.json /tmp/
 ADD backend/*.sh ./
+RUN chmod +x init.sh wait-for-it.sh
 ADD backend/cli.js ./
 RUN cd /tmp && npm install
 RUN cp -a /tmp/node_modules .
